@@ -138,6 +138,10 @@ def index():
             matched_df.to_excel(writer, index=False, sheet_name="Matched Spares")
         output.seek(0)
 
-        return send_file(output, download_name="matched_spares.xlsx", as_attachment=True)
+        return render_template("file_download.html", filename="matched_spares.xlsx")
 
     return render_template("index.html")
+
+@app.route("/download/<filename>")
+def download_file(filename):
+    return send_file(filename, as_attachment=True)
